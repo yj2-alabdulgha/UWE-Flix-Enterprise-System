@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container" style="width: 50%; margin-top: 50px;">
+    <h1>Update Account</h1>
+    <form action="/update/{{customer.id}}" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="">ID</label>
+            <input type="text" name="cid" value="{{customer.cid}}" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="">Title</label>
+            <input type="text" name="ctitle" value="{{customer.ctitle}}" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="">Surname</label>
+            <input type="text" name="cname" value="{{customer.cname}}" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="">Club Name</label>
+            <input type="text" name="cclub"  value="{{customer.cclub}}" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="">Payment Details</label>
+            <input type="text" style="width: 30%;" name="cexp" class="form-control"><p>Exp Date</p></input>
+            <input type="text" style="width: 30%;" name="cbno" class="form-control mt-3"><p>Card Number</p></input>
+        </div>
+        <div class="form-group">
+            <label for="">Discount</label>
+            <select class="form-control" value="{{customer.cdiscount}}"  name="cdiscount">
+                <option>False</option>
+                <option>True</option>
+              </select>
+        </div>
+        <div class="form-group" style="margin-bottom: 100px;">
+            <button class="btn btn-primary" type="submit">Amend Account</button>
+            <a href="{% url 'show' %}" class="btn btn-info"> Get Details</a>
+        </div>
+    </form>
+</div>
+{% endblock content %}

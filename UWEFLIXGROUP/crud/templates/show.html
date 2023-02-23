@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-3">
+
+    <h1>Customer Details</h1>
+    
+    <a href="{% url 'add' %}" class="btn btn-sm btn-info" style="margin-bottom: 10px; margin-top: 10px;">Add Customer</a>
+
+    <hr>
+    
+    <table class="table">
+        
+        <thread>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Surname</th>
+                <th>Club Name</th>
+                <th>Discount</th>
+            </tr>
+        </thread>
+        <tbody>
+            {% for c in customer %}
+            <tr>
+                <td>{{ c.cid }}</td>
+                <td>{{ c.ctitle }}</td>
+                <td>{{ c.cname }}</td>
+                <td>{{ c.cclub }}</td>
+                <td>{{ c.cdiscount }}</td>
+                <td>
+                    <a href="update/{{ c.id}}" class="btn btn-sm btn-info">Amend</a>
+                    <a href="delete/{{ c.id}}" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+</div>
+{% endblock content %}

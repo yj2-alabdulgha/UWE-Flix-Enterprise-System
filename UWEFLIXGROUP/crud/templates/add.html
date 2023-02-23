@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container" style="width: 50%; margin-top: 50px;">
+    <h1>Create Account</h1>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="form-group">
+                <label for="">ID</label>
+                <input type="text" name="cid" class="form-control">
+            </div>
+            <label for="">Title</label>
+            <select class="form-control" name="ctitle">
+                <option>Mr.</option>
+                <option>Mrs.</option>
+                <option>Miss.</option>
+              </select>
+        </div>
+        <div class="form-group">
+            <label for="">Surname</label>
+            <input type="text" name="cname" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="">Registered Clubs</label>
+            <select class="form-control" name="cclub">
+                <option>UWE</option>
+                <option>Bath</option>
+                <option>Bristol</option>
+              </select>
+        </div>
+        <div class="form-group">
+            <label for="">Payment Details</label>
+            <input type="text" style="width: 30%;" name="ccexp" class="form-control"><p>Exp Date</p></input>
+            <input type="text" style="width: 30%;" name="ccno" class="form-control mt-3"><p>Card Number</p></input>
+        </div>
+        <div class="form-group">
+            <label for="">Discount</label>
+            <select class="form-control" name="cdiscount">
+                <option>False</option>
+                <option>True</option>
+              </select>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit">Create Account</button>
+            <a href="{% url 'show' %}" class="btn btn-info"> Get Details</a>
+        </div>
+    </form>
+</div>
+{% endblock content %}
