@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 
+# Sessions
+SESSION_SAVE_EVERY_REQUEST = True # Save session on every request
+SESSION_COOKIE_AGE = 900 # Cookies expire after 15 minutes
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -76,8 +81,14 @@ WSGI_APPLICATION = 'UWEflix.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'OPTIONS': {
+            'database': 'project',
+            'user': 'root',
+            'password': 'root',
+            'host': 'db',
+            'port': 3000,
+        },
     }
 }
 
