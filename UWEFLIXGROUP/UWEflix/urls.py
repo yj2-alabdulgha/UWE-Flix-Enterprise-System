@@ -16,13 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from crud import views as crud
-from Hub import views as hub
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('add/', crud.add_account, name='add'),
-    path('', crud.show, name='show'),
-    path('update/<int:id>', crud.update, name="update"),
-    path('delete/<int:id>', crud.delete, name="delete"),
-    path('/hub', hub.index, name='index'),
+    path('login', crud.login),
+    path('logout', crud.logout),
+    path('home', crud.home, name='home'),
+    # path('admin/', admin.site.urls),
+    # path('add/', crud.add_account, name='add'),
+    # path('', crud.show, name='show'),
+    # path('update/<int:id>', crud.update, name="update"),
+    # path('delete/<int:id>', crud.delete, name="delete"),
+    # path('/hub', hub.index, name='index'),
 ]
