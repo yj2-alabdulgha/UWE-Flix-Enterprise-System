@@ -4,15 +4,15 @@ import uuid
 # Account Manager Models - Samuel
 
 class Customer(models.Model):
-    cid = models.CharField(max_length=4)
+    cid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     ctitle = models.CharField(max_length=4)
-    cname = models.CharField(max_length=255)
-    cclub = models.CharField(max_length=255)
-    # ccno = models.CharField(max_length=255)
-    # ccexp = models.CharField(max_length=255)
+    cname = models.CharField(max_length=100)
+    cclub = models.CharField(max_length=100)
+    ccno = models.CharField(max_length=30)
+    ccexp = models.CharField(max_length=6)
     cdiscount = models.BooleanField(default=False)
 
-def __str__(self):
+    def __str__(self):
         return self.cname
 
 # Club Rep Models - Owain
@@ -71,7 +71,6 @@ def __str__(self):
 # class Film(models.Model):
 
 #     RATINGS = (('U', 'U'), ('PG', 'PG'), ('12A', '12A'), ('12', '12'), ('15', '15'), ('18', '18'))
-
 #     title = models.CharField(max_length=32)
 #     age_rating = models.CharField(max_length=5, choices=RATINGS)
 #     duration = models.IntegerField()
