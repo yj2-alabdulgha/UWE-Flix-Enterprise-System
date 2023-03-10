@@ -1,0 +1,17 @@
+
+FROM python:3.11
+
+WORKDIR /web
+
+# Get requirements
+COPY requirements.txt /web/
+RUN pip install -r requirements.txt
+
+# Copy the rest of the files
+COPY . /web/
+
+# Expose port 8000
+EXPOSE 8000
+
+# Run the server
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
