@@ -36,64 +36,8 @@ class Customer(models.Model):
 #     last_name = models.CharField(max_length=20)
 #     dob = models.DateField()
 
-# Movie Models - Anushka
-
-# class Movie(models.Model):
-#     movie_title = models.CharField(max_length=150)
-#     movie_duration = models.PositiveIntegerField()
-#     movie_age_rating = models.PositiveIntegerField()
-#     movie_description = models.TextField()
-#     ##Something for image here maybe
-    
-# class MovieShowings(models.Model):
-#     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
-#     movie_date = models.DateField()
-#     movie_time = models.TimeField()
-#     movie_screen = models.PositiveIntegerField() 
-#     movie_seats = models.PositiveIntegerField() 
-
-# class Ticket(models.Model):
-#     ticket_name = models.CharField(max_length=100)
-#     ticket_price = models.DecimalField(max_digits=6)
-
-# class NoOfTickets(models.Model):
-#     movie_ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
-#     ticket_quantity = models.PositiveIntegerField()
-
-# class MovieBooking(models.Model):
-#     name = models.CharField(max_length=100)
-#     email = models.EmailField() 
-#     showing = models.ForeignKey(MovieShowings, on_delete=models.CASCADE)
-#     no_of_tickets = models.ManyToManyField(NoOfTickets) 
-    
-# Film Models - Anushka
-
-# class Film(models.Model):
-
-#     RATINGS = (('U', 'U'), ('PG', 'PG'), ('12A', '12A'), ('12', '12'), ('15', '15'), ('18', '18'))
-#     title = models.CharField(max_length=32)
-#     age_rating = models.CharField(max_length=5, choices=RATINGS)
-#     duration = models.IntegerField()
-#     description = models.CharField(max_length=255)
-
-#     def __str__(self):
-#         return self.title
-    
-# class Screen(models.Model):
-#     screen_id = models.AutoField(primary_key=True)
-#     capacity = models.IntegerField()
-
-#     def __str__(self):
-#         return "Screen " + str(self.screen_id) + " (Capacity: " + str(self.capacity) + ")"
-    
-# class Showing(models.Model):
-#     film = models.ForeignKey(Film, null=True, on_delete=models.SET_NULL)
-#     screen = models.ForeignKey(Screen, null=True, on_delete=models.SET_NULL)
-#     time = models.DateTimeField(default=timezone.now)
-
 
 ### Anushka Models Update -->
-
 
 ## There is two ways to do abstract user so need to decide which is the bse for us the first one is the one down below:
 #class User(AbstractUser):
