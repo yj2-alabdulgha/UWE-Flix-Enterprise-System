@@ -1,0 +1,36 @@
+{% extends '../base.html' %} {% block content %}
+<div class="container mt-5 d-flex flex-column align-items-center">
+	<h1 class="font-weight-bold mb-3 text-center">
+		Representative Login
+	</h1>
+	<div class="card mt-4" style="width: 20rem;">
+		<div class="card-body">
+			<form method="post" class="font-weight-light">
+				{% csrf_token %}
+				<!-- Display Error if exists -->
+				{% if error %}
+				<div class="alert alert-danger" role="alert">
+					{{ error }}
+				</div>
+				{% endif %}
+
+				<div class="px-2 mb-4">
+					<div class="form-group">
+						<label for="username" class="fs-6">Username</label>
+						<input type="text" class="form-control" id="username" name="username" />
+					</div>
+	
+					<div class="form-group mt-4">
+						<label for="password" class="fs-6">Password</label>
+						<input type="password" class="form-control" id="password" name="password" />
+					</div>
+
+					<input type="submit" value="Sign In" class="btn btn-info mt-2 w-100 fw-bold mt-4  " />
+				</div>
+
+			</form>
+		</div>
+
+  </div>
+</div>
+{% endblock %} {% block additional_styles %} {% endblock %}

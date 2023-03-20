@@ -19,12 +19,15 @@ from crud import views as crud
 
 urlpatterns = [
     path('login', crud.login),
+    path('login/rep', crud.representative_login),
     path('logout', crud.logout),
     path('', crud.home, name='home'),
-    # path('admin/', admin.site.urls),
-    # path('add/', crud.add_account, name='add'),
-    # path('', crud.show, name='show'),
-    # path('update/<int:id>', crud.update, name="update"),
-    # path('delete/<int:id>', crud.delete, name="delete"),
-    # path('/hub', hub.index, name='index'),
+    
 ]
+
+# path('admin/', admin.site.urls),
+# path('add/', crud.add_account, name='add'),
+# path('', crud.show, name='show'),
+# path('update/<int:id>', crud.update, name="update"),
+# path('delete/<int:id>', crud.delete, name="delete"),
+# path('/hub', hub.index, name='index'),
