@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth import login as login2, authenticate, logout as logout2
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
+
 from .forms import *
 # from .models import Customer
 
@@ -36,55 +38,74 @@ from .forms import *
 #     return HttpResponseRedirect('/')
 
 # Home View - Samuel
-
-
+@login_required(login_url='/login')
 def home(request):
-    # Check if the user is authenticated
-    if request.user.is_authenticated:
-        return render(request, 'home.html')
-    else: 
-        return HttpResponseRedirect('/login')
+    return render(request, 'home.html')
 
 
-# Login View - Samuel
+# Generic Authentication Function
+def authenticate_account(request):
+    # Get the form
+    form = LoginForm(request.POST)
 
+    # Check if the form is valid
 
+    if not form.is_valid():
+        return None
+
+    # Clean the form data
+    username = form.cleaned_data['username']
+    password = form.cleaned_data['password']
+
+    # Check if the login details are correct
+    user = authenticate(username=username, password=password)
+
+    return user
+        
+
+# Customer Login View
 def login(request):
     # If the request is POST, then the user has submitted the login form
     if request.method == 'POST':
-        # Get the form
-        form = LoginForm(request.POST)
+        # Authenticate the user
+        user = authenticate_account(request)
 
-        # Check if the form is valid
-        if form.is_valid():
-            # Clean the form data
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
+        # If the username/password is correct, log the user in
 
-            # Check if the login details are correct
-            user = authenticate(username=username, password=password)
+        if not user:
+            return render(request, 'login/index.html', {'error': 'Invalid username and or password'})
 
-            # If the username/password is correct, log the user in
-            if user is not None:
-                login2(request, user)
+        login2(request, user)
 
-                # Redirect User
-                return HttpResponseRedirect('/home')
-        else:
-            # Returns an error message to the login page
-            return render(request, 'login.html', {'form': LoginForm})
+        # Redirect User
+        return HttpResponseRedirect('/')
 
-    # If the request is GET, then the user is requesting the login page
-    else:
-        # If the user is already logged in, redirect them to the home page
-        if request.user.is_authenticated:
-            return HttpResponseRedirect('/home')
-        else:
-            return render(request, 'login.html', {'form': LoginForm})
+
+    # If the user is already logged in, redirect them to the home page
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('/')
+    
+    return render(request, 'login/index.html')
+        
+
+# Representative Login View
+def representative_login(request):
+    if request.method == 'POST':
+        user = authenticate_account(request)
+
+        if not user:
+            return render(request, 'login/rep.html', {'error': 'Invalid username and or password'})
+        
+        login2(request, user)
+
+        return HttpResponseRedirect('/')
+    
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('/')
+    
+    return render(request, 'login/rep.html')
 
 # Logout View - Samuel
-
-
 def logout(request):
     # Check if the user is authenticated if so, log them out
     if request.user.is_authenticated:
