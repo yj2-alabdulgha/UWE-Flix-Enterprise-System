@@ -1,88 +1,61 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 import uuid
 
 # Account Manager Models - Samuel
 
-class Customer(models.Model):
-    cid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    ctitle = models.CharField(max_length=4)
-    cname = models.CharField(max_length=100)
-    cclub = models.CharField(max_length=100)
-    ccno = models.CharField(max_length=30)
-    ccexp = models.CharField(max_length=6)
-    cdiscount = models.BooleanField(default=False)
+# Extend the User model to add the following fields:
+class User(AbstractUser):
+    is_customer = models.BooleanField(default=False)
+    is_accountmanager = models.BooleanField(default=False)
+    is_cinemamanager = models.BooleanField(default=False)
+    is_clubrepresentative = models.BooleanField(default=False)
+    email = models.EmailField()
+
+class Representative(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    first_name = models.CharField(max_length=20)
+    last_name = models.CharField(max_length=20)
+    date_of_birth = models.DateField()
+
+class Club(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=50)
+    street = models.CharField(max_length = 50)
+    street_num = models.IntegerField()
+    city = models.CharField(max_length=50)
+    postcode = models.CharField(max_length=8)
+    landline_no = models.CharField(max_length=15)
+    mobile_no = models.CharField(max_length=15)
+    representative = models.ForeignKey(Representative, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.cname
+        return self.name
 
-# Club Rep Models - Owain
+class CinemaManager(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    first_name = models.CharField(max_length=20)
+    last_name = models.CharField(max_length=20)
 
-# class Club(models.Model):
-#     club_number = models.IntegerField()
-#     name = models.CharField(max_length=4)
-#     street = models.CharField(max_length = 50)
-#     street_num = models.IntegerField()
-#     city = models.CharField(max_length=50)
-#     post_code = models.CharField(max_length=8)
-#     landline_no = models.CharField(max_length=15)
-#     mobile_no = models.CharField(max_length=15)
-#     email = models.EmailField()
+class AccountManager(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    first_name = models.CharField(max_length=20)
+    last_name = models.CharField(max_length=20)
 
-#     def __str__(self):
-#         return self.name
-    
-# class Representative(models.Model):
-#     first_name = models.CharField(max_length=20)
-#     last_name = models.CharField(max_length=20)
-#     dob = models.DateField()
+class Customer(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    title = models.CharField(max_length=4)
+    name = models.CharField(max_length=100)
+    club = models.ForeignKey(Club, on_delete=models.CASCADE)
+    cc_number = models.CharField(max_length=30)
+    cc_exp = models.CharField(max_length=6)
+    discount = models.FloatField(default=0.00)
+
+    def __str__(self):
+        return self.name
 
 
 ### Anushka Models Update -->
-
-## There is two ways to do abstract user so need to decide which is the bse for us the first one is the one down below:
-#class User(AbstractUser):
-#  USER_TYPE_CHOICES = (
-#      (1, 'customer'),
-#      (2, 'accountmanager'),
-#      (3, 'clubrepresentative'),
-#      (4, 'cinemamanager'),
-#    ) 
-
-#  user_type = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES)
-
-#  The second one is here:
-#class User(AbstractUser):
-#    is_customer = models.BooleanField('student status', default=False)
-#    is_accountmanager = models.BooleanField('teacher status', default=False)
-#    is_cinemamanager = models.BooleanField('teacher status', default=False)
-#    is_clubrepresentative = models.BooleanField('teacher status', default=False)
-
-
-#class Customer(models.Model):
-#    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-#    first_name = models.CharField(max_length=20)
-#    last_name = models.CharField(max_length=20)
-#    dob = models.DateField()
-#    email = models.EmailField() 
-#    creditdetails = models.FloatField(default=0.00)
-
-#class CustomerMoneyTransactions(models.Model): 
-#   customer = models.ForeignKey(Customer, blank=True, null=True, default=None, on_delete=models.SET_DEFAULT)  
-#   date = models.DateField()  
-#   cost = models.FloatField()  
-#   payment_done = models.BooleanField()  
-#   cancel_booking = models.BooleanField(default=False)
-
-#class Club(models.Model):
-#     club_number = models.IntegerField()
-#     name = models.CharField(max_length=4)
-#     street = models.CharField(max_length = 50)
-#     street_num = models.IntegerField()
-#     city = models.CharField(max_length=50)
-#     post_code = models.CharField(max_length=8)
-#     landline_no = models.CharField(max_length=15)
-#     mobile_no = models.CharField(max_length=15)
-
 
 #class adminUser(models.Model):
 #    adminuser = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
