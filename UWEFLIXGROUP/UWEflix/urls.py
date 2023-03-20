@@ -20,7 +20,7 @@ from crud import views as crud
 urlpatterns = [
     path('login', crud.login),
     path('logout', crud.logout),
-    path('home', crud.home, name='home'),
+    path('', crud.home, name='home'),
     # path('admin/', admin.site.urls),
     # path('add/', crud.add_account, name='add'),
     # path('', crud.show, name='show'),
