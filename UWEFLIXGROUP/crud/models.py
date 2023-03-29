@@ -73,7 +73,7 @@ class Customer(models.Model):
 #        - 15
 #        - 18"""
 #    duration = models.CharField(max_length=3)
-#    discription = models.CharField(max_length=500)
+#    description = models.CharField(max_length=500)
 #    filmimage = models.ImageField()
 
 #class Screen(models.Model):

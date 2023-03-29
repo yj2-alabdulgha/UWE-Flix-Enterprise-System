@@ -5,4 +5,18 @@
 <div class="container mt-3 pt-5">
     <h1>Welcome, <strong>{{ user.get_username }}</strong></h1>
 <div class="container mt-3">
+{% for film in films %}
+<div class="movie-card" style="text-align: center;">
+    <b class="movie-info">{{film.title}}</b>
+    <br class="movie-info">{{film.filmimage}}
+    <br class="movie-info">Rating: {{film.rating}}
+    <br class="movie-info">Duration: {{film.duration}}
+    <br class="movie-info">Description: {{film.description}}
+    <br><form method="POST" action="{% url 'showings' %}">
+        {% csrf_token %}
+        <input type="hidden" title="film_title" value="{{ film.title }}">
+        <button type="submit"> See Showings for this film</button>
+      </form>
+</div>
+{% endfor %}
 {% endblock %}

@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 
 from .forms import *
+from .models import Film, FilmShowing
 # from .models import Customer
 
 # Create your views here.
@@ -37,10 +38,17 @@ from .forms import *
 #     form.delete()
 #     return HttpResponseRedirect('/')
 
-# Home View - Samuel
+#Club Rep Showing View - Owain
+def club_showings(request):
+    film_title = request.POST.get('film_title')
+    showings = FilmShowing.objects.filter(film=film_title)
+    return render(request, 'clubshowings.html', {'showings': showings})
+
+# Home View - Samuel/Owain
 @login_required(login_url='/login')
 def home(request):
-    return render(request, 'home.html')
+    films = Film.objects.all()
+    return render(request, 'home.html', {'films': films})
 
 
 # Generic Authentication Function

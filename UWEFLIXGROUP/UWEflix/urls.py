@@ -22,6 +22,7 @@ urlpatterns = [
     path('login/rep', crud.representative_login),
     path('logout', crud.logout),
     path('', crud.home, name='home'),
+    path('clubshowings/', crud.club_showings, name='club_showings')
     
 ]
 

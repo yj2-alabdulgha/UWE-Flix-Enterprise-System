@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}
+Booking
+{% endblock %}
+{% block content %}
+Welcome {{ user.get_username }}
+{% for showing in showings %}
+<div class="movie-card" style="text-align: center;">
+    <b class="movie-info">{{showing.movie}}</b>
+    <br class="movie-info">Screen: {{showing.moviescreen}}
+    <br class="movie-info">Date: {{showing.film_date}}
+    <br class="movie-info">Tickets Remaining: {{showing.ticketsremaining}}
+    <!-- This can instead link to wherever transactions are happening, but that is WIP :)-->
+    <form>
+        <label for="inputNumber">Input number of Club members going: </label>
+        <input type="number" id="inputNumber" name="inputNumber" min="0" max="30">
+        <br class=movie-info><button type="submit"><a href = "https://www.google.com">Buy Tickets</a></button>
+      </form>
+</div>
+{% endfor %}
+{% endblock %}
