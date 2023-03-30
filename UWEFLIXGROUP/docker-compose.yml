@@ -34,4 +34,3 @@ services:
     depends_on:
       db:
         condition: service_healthy
-        #this is a test
