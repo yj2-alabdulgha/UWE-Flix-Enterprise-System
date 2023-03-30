@@ -23,14 +23,14 @@ services:
       interval: 10s
       timeout: 2s
       retries: 30
-  # django:
-  #   container_name: django
-  #   build: .
-  #   command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000" # Run Django and migrate
-  #   volumes:
-  #     - .:/web
-  #   ports:
-  #     - 8000:8000
-  #   depends_on:
-  #     db:
-  #       condition: service_healthy
+    django:
+      container_name: django
+      build: .
+      command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000" # Run Django and migrate
+      volumes:
+        - .:/web
+      ports:
+      - 8000:8000
+    depends_on:
+      db:
+        condition: service_healthy
