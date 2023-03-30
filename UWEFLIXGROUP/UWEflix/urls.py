@@ -18,11 +18,15 @@ from django.urls import path
 from crud import views as crud
 
 urlpatterns = [
-    path('login', crud.login),
-    path('login/rep', crud.representative_login),
+    path('auth', crud.login),
+    path('auth/rep', crud.representative_login),
+    path('auth/register', crud.register_customer),
     path('logout', crud.logout),
     path('', crud.home, name='home'),
-    
+    path('admin/', admin.site.urls),
+
+    # REST API
+    path('api/v1/film', crud.create_film),
 ]
 
 # path('admin/', admin.site.urls),
