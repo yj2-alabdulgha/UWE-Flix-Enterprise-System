@@ -1,46 +1,22 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
 from django.contrib.auth import login as login2, authenticate, logout as logout2
-from django.http import HttpResponse
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.views.decorators.csrf import csrf_exempt
 
-from .forms import *
-# from .models import Customer
+from django.http import HttpResponseRedirect, JsonResponse
 
-# Create your views here.
-
-
-# def add_account(request):
-#     form = CustomerForm(request.POST or None)
-#     # student = Customer.objects.all()
-#     if form.is_valid():
-#         form.save()
-#     return render(request, 'add.html', {'form': form})
+from django.core.exceptions import PermissionDenied
 
 
-# def show(request):
-#     customer = Customer.objects.all()
-#     return render(request, 'show.html', {'customer': customer})
+from .models import User, Customer, FilmShowings, Film
+from .forms import LoginForm, CustomerForm, FilmForm
 
-
-# def update(request, id):
-#     customer = Customer.objects.get(id=id)
-#     form = CustomerForm(request.POST, instance=customer)
-#     if form.is_valid():
-#         form.save()  # Update Form
-#         return HttpResponseRedirect('/')  # Redirects to View Page
-#     return render(request, 'update.html', {'customer': customer})
-
-
-# def delete(request, id):
-#     form = Customer.objects.get(id=id)  # Grabs Current Form
-#     form.delete()
-#     return HttpResponseRedirect('/')
-
-# Home View - Samuel
-@login_required(login_url='/login')
+@login_required(login_url='/auth')
 def home(request):
-    return render(request, 'home.html')
+    # Load films
+    showings = Film.objects.all()
+
+    return render(request, 'home.html', {'films': showings})
 
 
 # Generic Authentication Function
@@ -54,11 +30,11 @@ def authenticate_account(request):
         return None
 
     # Clean the form data
-    username = form.cleaned_data['username']
+    email = form.cleaned_data['email']
     password = form.cleaned_data['password']
 
     # Check if the login details are correct
-    user = authenticate(username=username, password=password)
+    user = authenticate(request, username=email, password=password)
 
     return user
         
@@ -73,7 +49,7 @@ def login(request):
         # If the username/password is correct, log the user in
 
         if not user:
-            return render(request, 'login/index.html', {'error': 'Invalid username and or password'})
+            return render(request, 'auth/index.html', {'error': 'Invalid username and or password'})
 
         login2(request, user)
 
@@ -85,8 +61,44 @@ def login(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('/')
     
-    return render(request, 'login/index.html')
+    return render(request, 'auth/index.html')
+
+def register_customer(request):
+    if request.method == 'POST':
+        form = CustomerForm(request.POST)
+
+        if not form.is_valid():
+            return render(request, 'auth/register.html', {'error': f'Invalid form data - {form.errors}'})
         
+        data = form.cleaned_data
+
+        # Check for existing email
+        if User.objects.filter(email=data['email']).exists():
+            return render(request, 'auth/register.html', {'error': 'This E-Mail has already been registered'})
+
+        user = User.objects.create(
+            email=data['email'],
+            first_name=data['first_name'],
+            last_name=data['last_name'],
+            username=data['email'],
+            is_customer=True
+        )
+
+        user.set_password(data['password'])
+        user.save()
+
+        # Create Customer
+        customer = Customer.objects.create(
+            user=user,
+            title=data['title'],
+            date_of_birth=data['date_of_birth'],
+        )
+
+        customer.save()
+
+        return redirect('/auth')
+        
+    return render(request, 'auth/register.html')
 
 # Representative Login View
 def representative_login(request):
@@ -94,7 +106,7 @@ def representative_login(request):
         user = authenticate_account(request)
 
         if not user:
-            return render(request, 'login/rep.html', {'error': 'Invalid username and or password'})
+            return render(request, 'auth/rep.html', {'error': 'Invalid username and or password'})
         
         login2(request, user)
 
@@ -103,7 +115,38 @@ def representative_login(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('/')
     
-    return render(request, 'login/rep.html')
+    return render(request, 'auth/rep.html')
+
+@login_required(login_url='/auth')
+@user_passes_test(lambda user: user.is_cinemamanager)
+@csrf_exempt
+def create_film(request):
+    if request.method != 'POST':
+        raise PermissionDenied 
+
+    # Get the form
+    form = FilmForm(request.POST, request.FILES)
+
+    # Check if the form is valid
+    if not form.is_valid():
+        return JsonResponse({'error': form.errors})
+    
+    # Get the form data
+    data = form.cleaned_data
+    
+    # Create the film
+    film = Film.objects.create(
+        title=data['title'],
+        description=data['description'],
+        duration=data['duration'],
+        rating=data['rating'],
+        image=data['image'],
+        trailer=data['trailer']
+    )
+
+    film.save()
+
+    return JsonResponse({'success': 'Film created successfully'})
 
 # Logout View - Samuel
 def logout(request):
@@ -112,4 +155,4 @@ def logout(request):
         logout2(request)
 
     # Redirect to the login page
-    return HttpResponseRedirect('/login')
+    return HttpResponseRedirect('/auth')
