@@ -1,5 +1,11 @@
 from django import forms
 from django.core.validators import FileExtensionValidator
+#from datetime import datetime
+#from datetime import date
+#import time
+#import calendar
+#from django.core.exceptions import ValidationError
+#from django.core.validators import MaxValueValidator, MinValueValidator, MinLengthValidator
 # from .models import Customer
 
 # class CustomerForm(forms.ModelForm):
@@ -52,3 +58,9 @@ class FilmForm(forms.Form):
 
 #    def __movieticketchoices__(self, changevalue):
 #        self.choose_payment_choices = changevalue
+
+#class CardForm(forms.Form):
+#    present = date.present()
+#    card_month = ()
+#    card_year = ()
+#    current_year = present.year
