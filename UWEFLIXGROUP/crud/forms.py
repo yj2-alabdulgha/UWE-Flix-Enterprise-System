@@ -59,8 +59,14 @@ class FilmForm(forms.Form):
 #    def __movieticketchoices__(self, changevalue):
 #        self.choose_payment_choices = changevalue
 
+# Temprory forms for card payment details, might change as the development progresses.
 #class CardForm(forms.Form):
 #    present = date.present()
 #    card_month = ()
 #    card_year = ()
 #    current_year = present.year
+##Need to figure out how to put functionalities here for both selecting the date,month,year and also to input the card numbers.
+#    Cnumber = forms.DecimalField(max_digits=16)
+#    card_expiry_month = forms.ChoiceField(choices=card_month)
+#    card_expiry_year = forms.ChoiceField(choices=card_year)
+
