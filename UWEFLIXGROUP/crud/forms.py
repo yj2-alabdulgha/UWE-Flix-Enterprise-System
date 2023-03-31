@@ -35,7 +35,10 @@ class FilmForm(forms.Form):
     image = forms.ImageField(allow_empty_file=False, validators=[FileExtensionValidator(allowed_extensions=['jpg', 'png'])], widget=forms.FileInput)
     trailer = forms.URLField()
 
+# Temprory forms for transaction might need to change it as it progresses - Anushka
 # class UWEPaymentForm(forms.Form):
 #    tickets_for_adults = forms.IntegerField(validators=[ MaxValueValidator(100), MinValueValidator(0)],required=False, initial=0)
 #    tickets_for_students = forms.IntegerField(validators=[ MaxValueValidator(100), MinValueValidator(0)],required=False, initial=0)
 #    tickets_for_children = forms.IntegerField(validators=[ MaxValueValidator(100), MinValueValidator(0)],required=False, initial=0)
+#    cost_of_all_tickets=forms.FloatField(label="Cost of Total Tickets: ", disabled=True, required=False)
+#    choose_payment_choices = [(None, 'Select an option:'), ('CPay', 'Customer: Pay with Card'), ('SPay', 'Student: Pay with Credit'), ]
