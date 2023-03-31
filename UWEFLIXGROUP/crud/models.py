@@ -45,17 +45,32 @@ class AccountManager(models.Model):
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     title = models.CharField(max_length=4)
-    name = models.CharField(max_length=100)
-    club = models.ForeignKey(Club, on_delete=models.CASCADE)
-    cc_number = models.CharField(max_length=30)
-    cc_exp = models.CharField(max_length=6)
+    # first_name = models.CharField(max_length=100)
+    # last_name = models.CharField(max_length=100)
+    date_of_birth = models.DateField()
+    club = models.ForeignKey(Club, on_delete=models.CASCADE, null=True, blank=True)
+    cc_number = models.CharField(max_length=30, null=True, blank=True)
+    cc_exp = models.CharField(max_length=6, null=True, blank=True)
     discount = models.FloatField(default=0.00)
 
     def __str__(self):
         return self.name
 
+class Film(models.Model):
+   title = models.CharField(max_length=100)
+   rating = models.CharField(choices=(('U', 'U'), ('PG', 'PG'), ('12A', '12A'), ('12', '12'), ('15', '15'), ('18', '18')), max_length=3, default='U')
+   duration = models.IntegerField(default=0)
+   description = models.CharField(max_length=500, default='No description available')
+   image = models.ImageField(upload_to='uploads/films', default='uploads/films/no-img.jpg')
+   trailer = models.URLField(default='https://www.youtube.com/watch?v=dQw4w9WgXcQ')
 
-### Anushka Models Update -->
+class Screen(models.Model):
+   capacity = models.IntegerField(default=0)
+class FilmShowings(models.Model):
+   movie = models.ForeignKey(Film, default=1, on_delete=models.CASCADE)
+   screen = models.ForeignKey(Screen, default=1, on_delete=models.CASCADE)
+   film_date = models.DateField()
+   ticket_quantity = models.IntegerField(default=150)
 
 #class adminUser(models.Model):
 #    adminuser = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
