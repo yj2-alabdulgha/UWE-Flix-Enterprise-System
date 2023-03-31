@@ -1,10 +1,10 @@
 {% extends '../base.html' %} {% block content %}
 <div class="container mt-5 d-flex flex-column align-items-center">
-	<h1 class="font-weight-bold mb-3 text-center">
-		Sign In
-	</h1>
 	<div class="card mt-4" style="width: 20rem;">
 		<div class="card-body">
+			<h1 class="font-weight-bold mb-3 text-center">
+				Sign In
+			</h1>
 			<form method="post" class="font-weight-light">
 				{% csrf_token %}
 				<!-- Display Error if exists -->
@@ -26,6 +26,11 @@
 					</div>
 
 					<input type="submit" value="Sign In" class="btn btn-info mt-2 w-100 fw-bold mt-4  " />
+					
+					<div class="mt-4">
+						<a class="" href="/auth/register">I don't have an account yet?</a>
+					</div>
+
 				</div>
 
 			</form>
