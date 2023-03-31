@@ -34,3 +34,8 @@ class FilmForm(forms.Form):
     description = forms.CharField(max_length=500)
     image = forms.ImageField(allow_empty_file=False, validators=[FileExtensionValidator(allowed_extensions=['jpg', 'png'])], widget=forms.FileInput)
     trailer = forms.URLField()
+
+# class UWEPaymentForm(forms.Form):
+#    tickets_for_adults = forms.IntegerField(validators=[ MaxValueValidator(100), MinValueValidator(0)],required=False, initial=0)
+#    tickets_for_students = forms.IntegerField(validators=[ MaxValueValidator(100), MinValueValidator(0)],required=False, initial=0)
+#    tickets_for_children = forms.IntegerField(validators=[ MaxValueValidator(100), MinValueValidator(0)],required=False, initial=0)
