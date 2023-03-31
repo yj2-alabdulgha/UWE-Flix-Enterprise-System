@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.views.decorators.csrf import csrf_exempt
 
 from .forms import *
-from .models import Film, FilmShowing
+from .models import Film, FilmShowings
 # from .models import Customer
 from django.http import HttpResponseRedirect, JsonResponse
 
@@ -36,7 +36,7 @@ from .forms import LoginForm, CustomerForm, FilmForm
 #Club Rep Showing View - Owain
 def club_showings(request):
     film_title = request.POST.get('film_title')
-    showings = FilmShowing.objects.filter(film=film_title)
+    showings = FilmShowings.objects.filter(film=film_title)
     # Function to show showings only < club member amount
     return render(request, 'clubshowings.html', {'showings': showings})
 

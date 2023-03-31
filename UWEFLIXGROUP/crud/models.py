@@ -66,6 +66,7 @@ class Film(models.Model):
 
 class Screen(models.Model):
    capacity = models.IntegerField(default=0)
+   
 class FilmShowings(models.Model):
    movie = models.ForeignKey(Film, default=1, on_delete=models.CASCADE)
    screen = models.ForeignKey(Screen, default=1, on_delete=models.CASCADE)
