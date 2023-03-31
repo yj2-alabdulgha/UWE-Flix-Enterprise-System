@@ -72,4 +72,14 @@ class FilmShowings(models.Model):
    film_date = models.DateField()
    ticket_quantity = models.IntegerField(default=150)
 
+class MovieTicketPrices(models.Model):
+    adult = models.FloatField(default=9.0)
+    student = models.FloatField(default=7.0)
+    child = models.FloatField(default=5.0)
 
+    def TicketPricesChanges(adult, student, child):
+        MovieTicketPrices.objects.create(adult=adult, student=student, child=child)
+
+    def CurrentTicketPrices():
+        currentTicketPrices = MovieTicketPrices.objects.last()
+        return currentTicketPrices.adult, currentTicketPrices.student, currentTicketPrices.child
