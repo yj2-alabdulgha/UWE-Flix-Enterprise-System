@@ -42,6 +42,7 @@ from .models import Film, FilmShowing
 def club_showings(request):
     film_title = request.POST.get('film_title')
     showings = FilmShowing.objects.filter(film=film_title)
+    # Function to show showings only < club member amount
     return render(request, 'clubshowings.html', {'showings': showings})
 
 # Home View - Samuel/Owain
