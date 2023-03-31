@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 import uuid
 
-# Account Manager Models - Samuel
+# ALL THE MODELS HERE HAVE BEEN EQUALLY DONE BY ANUSHKA, SAM AND OWAIN. DUE TO GITHUB PROBLEMS SAM MADE THE COMMITS FOR OTHER MEMBERS.
 
 # Extend the User model to add the following fields:
 class User(AbstractUser):
