@@ -42,3 +42,13 @@ class FilmForm(forms.Form):
 #    tickets_for_children = forms.IntegerField(validators=[ MaxValueValidator(100), MinValueValidator(0)],required=False, initial=0)
 #    cost_of_all_tickets=forms.FloatField(label="Cost of Total Tickets: ", disabled=True, required=False)
 #    choose_payment_choices = [(None, 'Select an option:'), ('CPay', 'Customer: Pay with Card'), ('SPay', 'Student: Pay with Credit'), ]
+#    def clean(self): ## Do not know if this works or not
+#        tickets_for_adults = self.cleaned_data.get('tickets_for_adults')
+#        tickets_for_students = self.cleaned_data.get('tickets_for_students')
+#        tickets_for_children = self.cleaned_data.get('tickets_for_children')
+#        if tickets_for_adults == 0 and tickets_for_students == 0 and tickets_for_children == 0:
+#            raise forms.ValidationError("You must purchase one ticket to go forward")
+#        return self.cleaned_data
+
+#    def __movieticketchoices__(self, changevalue):
+#        self.choose_payment_choices = changevalue
