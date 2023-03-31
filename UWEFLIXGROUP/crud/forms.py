@@ -65,8 +65,18 @@ class FilmForm(forms.Form):
 #    card_month = ()
 #    card_year = ()
 #    current_year = present.year
-##Need to figure out how to put functionalities here for both selecting the date,month,year and also to input the card numbers.
+# Need to figure out how to put functionalities here for both selecting the date,month,year and also to input the card numbers.
 #    Cnumber = forms.DecimalField(max_digits=16)
 #    card_expiry_month = forms.ChoiceField(choices=card_month)
 #    card_expiry_year = forms.ChoiceField(choices=card_year)
+#     def clean(self):
+#        Cnumber = self.cleaned_data.get('Cnumber')
+#        card_expiry_month = self.cleaned_data.get('card_expiry_month')
+#        card_expiry_year = self.cleaned_data.get('card_expiry_year')
+#        try:
+#            if len(str(int(Cnumber))) < 16:
+#                raise forms.ValidationError("Number of digits should be 16")
+#        except:
+#            raise forms.ValidationError("Invalid number")
+# NEED TO FIGURE OUT HOW TO DO INPUT FUNCTIONALITIES TO SHOW THAT CARD HAS EXPIRED.
 
