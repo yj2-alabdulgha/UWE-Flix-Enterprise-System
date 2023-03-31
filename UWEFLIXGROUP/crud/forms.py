@@ -41,7 +41,7 @@ class FilmForm(forms.Form):
     image = forms.ImageField(allow_empty_file=False, validators=[FileExtensionValidator(allowed_extensions=['jpg', 'png'])], widget=forms.FileInput)
     trailer = forms.URLField()
 
-# Temprory forms for transaction might need to change it as it progresses - Anushka
+#  Temprory forms for transaction might need to change it as it progresses - Anushka
 # class UWEPaymentForm(forms.Form):
 #    tickets_for_adults = forms.IntegerField(validators=[ MaxValueValidator(100), MinValueValidator(0)],required=False, initial=0)
 #    tickets_for_students = forms.IntegerField(validators=[ MaxValueValidator(100), MinValueValidator(0)],required=False, initial=0)
@@ -79,4 +79,11 @@ class FilmForm(forms.Form):
 #        except:
 #            raise forms.ValidationError("Invalid number")
 # NEED TO FIGURE OUT HOW TO DO INPUT FUNCTIONALITIES TO SHOW THAT CARD HAS EXPIRED.
+
+
+# ADDED A FORM TO CHANGE THE TICKET PRICES 
+#class ChangeinTicketPriceForm(forms.ModelForm):
+#   class Meta:
+#        model = TicketPricesChanges
+#        fields = "__all__"
 
