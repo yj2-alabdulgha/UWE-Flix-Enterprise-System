@@ -24,6 +24,8 @@ urlpatterns = [
     path('logout', crud.logout),
     path('', crud.home, name='home'),
     path('admin/', admin.site.urls),
+    path('showings/', crud.showings),
+    path('club_account/', crud.club_account),
 
     # REST API
     path('api/v1/film', crud.create_film),
