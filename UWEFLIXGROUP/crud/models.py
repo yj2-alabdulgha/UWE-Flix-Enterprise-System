@@ -73,4 +73,8 @@ class FilmShowings(models.Model):
    film_date = models.DateField()
    ticket_quantity = models.IntegerField(default=150)
 
+class CustomerTickets(models.Model):
+    item = models.CharField(max_length=150)
+    ticketprice = models.DecimalField(max_digits= 5)
+    ticketquantity = models.PositiveIntegerField()
 
