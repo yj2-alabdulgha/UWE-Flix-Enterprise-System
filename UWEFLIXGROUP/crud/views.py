@@ -2,9 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login as login2, authenticate, logout as logout2
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.views.decorators.csrf import csrf_exempt
-
 from django.http import HttpResponseRedirect, JsonResponse
-
 from django.core.exceptions import PermissionDenied
 
 
@@ -156,3 +154,13 @@ def logout(request):
 
     # Redirect to the login page
     return HttpResponseRedirect('/auth')
+
+# Booking system
+def showings(request):
+    #function to only show certain dates
+    #showings = Film.objects.filter(film_date = selected_date)
+    return render(request, 'screenings.html')
+
+#Club Rep
+def club_account(request):
+    return render(request, 'club_account.html')
