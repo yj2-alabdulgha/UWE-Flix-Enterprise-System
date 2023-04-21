@@ -74,7 +74,10 @@ class FilmShowings(models.Model):
    ticket_quantity = models.IntegerField(default=150)
 
 class CustomerTickets(models.Model):
+    ticketid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     item = models.CharField(max_length=150)
     ticketprice = models.DecimalField(max_digits= 5)
     ticketquantity = models.PositiveIntegerField()
+    filmtitle = models.CharField(max_length=100)
+    filmduration = models.IntegerField(default=0)
 
