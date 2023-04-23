@@ -42,12 +42,11 @@ class TicketPaymentForm(forms.Form):
     customer_card_expiry = forms.CharField(max_length=6)
     customer_card_cvv = forms.CharField(max_length=3)
 
-class TicketForm(forms.Form):
-    item = forms.CharField(max_length=150)
-    ticketprice = forms.DecimalField(max_digits= 5)
-    ticketquantity = forms.PositiveIntegerField()
-    filmtitle = forms.CharField(max_length=100)
-    filmduration = forms.IntegerField(default=0)
+#class TicketForm(forms.Form):
+    #ticket_price = forms.DecimalField(max_digits= 5)
+    #ticket_quantity = forms.IntegerField()
+    #film_title = forms.CharField(max_length=100)
+    #film_duration = forms.IntegerField()
 
 class Clubrep(forms.Form):
     name = forms.CharField(max_length=50)

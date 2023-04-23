@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from crud import views as crud
 
 urlpatterns = [
@@ -29,7 +31,9 @@ urlpatterns = [
 
     # REST API
     path('api/v1/film', crud.create_film),
-]
+
+    # Images
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # path('admin/', admin.site.urls),
 # path('add/', crud.add_account, name='add'),

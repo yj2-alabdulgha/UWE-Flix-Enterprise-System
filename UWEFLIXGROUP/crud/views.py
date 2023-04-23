@@ -131,6 +131,9 @@ def create_film(request):
     
     # Get the form data
     data = form.cleaned_data
+
+    # Remove the /uploads/ from the image path
+    data['image'] = data['image'].replace('/uploads/', '')
     
     # Create the film
     film = Film.objects.create(
